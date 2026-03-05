@@ -186,7 +186,6 @@ void McpServer::AddCommonTools() {
                                            : std::string("Jammer zaten calismiyordu.");
             });
 
-     
     auto& ir = Application::GetInstance().GetIrService();
 
     AddTool(
@@ -212,13 +211,16 @@ void McpServer::AddCommonTools() {
         });
 
     AddTool("self.ir.tv_b_gone",
-            "TV-B-Gone: Tum bilinen TV markalarinin guc kapama kodlarini sirayla gonder.\n"
+            "TV-B-Gone: Tüm bilinen TV markalarinin guc kapama kodlarini sirayla gonderir.\n"
             "Etraftaki TV'leri, projektörleri ve ekranlari kapatmak icin kullanilir.\n"
-            "Durdurmak icin self.ir.stop_tv_b_gone cagrisi yapin.",
-            PropertyList(), [&ir](const PropertyList& properties) -> ReturnValue {
-                return ir.StartTvBGone()
-                           ? std::string("TV-B-Gone basladi. Tum kodlar sirayla gonderiliyor.")
-                           : std::string("TV-B-Gone baslanamadi.");
+            "Durdurmak icin self.ir.stop_tv_b_gone cagrisi yapin.\n"
+            "Parametre: region ('eu' (Avrupa) veya 'us' (Amerika/Asya) olarak belirtilmelidir).",
+            PropertyList({Property("region", kPropertyTypeString)}),
+            [&ir](const PropertyList& properties) -> ReturnValue {
+                std::string region = properties["region"].value<std::string>();
+                return ir.StartTvBGone(region) ? std::string("TV-B-Gone basladi (Bölge: ") +
+                                                     region + "). Tum kodlar sirayla gonderiliyor."
+                                               : std::string("TV-B-Gone baslanamadi.");
             });
 
     AddTool("self.ir.stop_tv_b_gone", "Devam eden TV-B-Gone islemini durdur.", PropertyList(),

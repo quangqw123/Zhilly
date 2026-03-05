@@ -20,9 +20,7 @@
 
 static const char* TAG = "IrService";
 
- 
- 
- 
+#include "tvbgone_codes.h"
 
 IrService::IrService() {}
 IrService::~IrService() { Deinit(); }
@@ -31,11 +29,10 @@ bool IrService::Init() {
     if (initialized_)
         return true;
 
-     
     rmt_tx_channel_config_t tx_cfg = {};
     tx_cfg.gpio_num = (gpio_num_t)IR_TX_GPIO;
     tx_cfg.clk_src = RMT_CLK_SRC_DEFAULT;
-    tx_cfg.resolution_hz = RMT_CLK_RES_HZ;   
+    tx_cfg.resolution_hz = RMT_CLK_RES_HZ;
     tx_cfg.mem_block_symbols = 64;
     tx_cfg.trans_queue_depth = 4;
     tx_cfg.flags.invert_out = false;
@@ -47,13 +44,11 @@ bool IrService::Init() {
         return false;
     }
 
-     
     rmt_carrier_config_t carrier_cfg = {};
     carrier_cfg.frequency_hz = 38000;
-    carrier_cfg.duty_cycle = 0.33f;   
+    carrier_cfg.duty_cycle = 0.33f;
     rmt_apply_carrier(tx_channel_, &carrier_cfg);
 
-     
     rmt_copy_encoder_config_t enc_cfg = {};
     ret = rmt_new_copy_encoder(&enc_cfg, &tx_encoder_);
     if (ret != ESP_OK) {
@@ -86,16 +81,12 @@ void IrService::Deinit() {
     ESP_LOGI(TAG, "IR servisi kapatıldı.");
 }
 
- 
- 
- 
 bool IrService::SendRaw(const std::vector<uint16_t>& durations, uint32_t freq_hz) {
     if (!initialized_ || !tx_channel_ || !tx_encoder_)
         return false;
     if (durations.empty())
         return false;
 
-     
     rmt_disable(tx_channel_);
     rmt_carrier_config_t carrier_cfg = {};
     carrier_cfg.frequency_hz = freq_hz;
@@ -103,16 +94,15 @@ bool IrService::SendRaw(const std::vector<uint16_t>& durations, uint32_t freq_hz
     rmt_apply_carrier(tx_channel_, &carrier_cfg);
     rmt_enable(tx_channel_);
 
-     
     size_t n = durations.size();
     std::vector<rmt_symbol_word_t> symbols;
     symbols.reserve(n / 2 + 1);
 
     for (size_t i = 0; i + 1 < n; i += 2) {
         rmt_symbol_word_t sym = {};
-        sym.duration0 = durations[i];   
+        sym.duration0 = durations[i];
         sym.level0 = 1;
-        sym.duration1 = durations[i + 1];   
+        sym.duration1 = durations[i + 1];
         sym.level1 = 0;
         symbols.push_back(sym);
     }
@@ -120,7 +110,7 @@ bool IrService::SendRaw(const std::vector<uint16_t>& durations, uint32_t freq_hz
         rmt_symbol_word_t sym = {};
         sym.duration0 = durations[n - 1];
         sym.level0 = 1;
-        sym.duration1 = 3000;   
+        sym.duration1 = 3000;
         sym.level1 = 0;
         symbols.push_back(sym);
     }
@@ -139,30 +129,24 @@ bool IrService::SendRaw(const std::vector<uint16_t>& durations, uint32_t freq_hz
     return true;
 }
 
- 
- 
- 
 bool IrService::SendNEC(uint32_t address, uint32_t command) {
-     
     std::vector<uint16_t> raw;
     raw.reserve(68);
     raw.push_back(9000);
-    raw.push_back(4500);   
+    raw.push_back(4500);
 
     uint32_t data = (address & 0xFF) | ((~address & 0xFF) << 8) | ((command & 0xFF) << 16) |
                     ((~command & 0xFF) << 24);
 
     for (int i = 0; i < 32; i++) {
         raw.push_back(562);
-        raw.push_back((data >> i) & 1 ? 1687 : 562);   
+        raw.push_back((data >> i) & 1 ? 1687 : 562);
     }
-    raw.push_back(562);   
+    raw.push_back(562);
     return SendRaw(raw, 38000);
 }
 
 bool IrService::SendRC5(uint32_t address, uint32_t command) {
-     
-     
     uint16_t data = ((1 & 1) << 13) | ((1 & 1) << 12) | ((address & 0x1F) << 6) | (command & 0x3F);
     std::vector<uint16_t> raw;
     const uint16_t half = 889;
@@ -174,7 +158,7 @@ bool IrService::SendRC5(uint32_t address, uint32_t command) {
         } else {
             raw.push_back(half);
             raw.push_back(half);
-        }   
+        }
     }
     return SendRaw(raw, 36000);
 }
@@ -182,8 +166,8 @@ bool IrService::SendRC5(uint32_t address, uint32_t command) {
 bool IrService::SendRC6(uint32_t address, uint32_t command) {
     std::vector<uint16_t> raw;
     raw.push_back(2664);
-    raw.push_back(888);   
-     
+    raw.push_back(888);
+
     uint32_t data = ((address & 0xFF) << 8) | (command & 0xFF);
     for (int i = 15; i >= 0; i--) {
         bool bit = (data >> i) & 1;
@@ -195,7 +179,6 @@ bool IrService::SendRC6(uint32_t address, uint32_t command) {
 }
 
 bool IrService::SendSamsung(uint32_t address, uint32_t command) {
-     
     std::vector<uint16_t> raw;
     raw.push_back(4500);
     raw.push_back(4500);
@@ -213,7 +196,7 @@ bool IrService::SendSony(uint32_t address, uint32_t command, uint8_t bits) {
     std::vector<uint16_t> raw;
     raw.push_back(2400);
     raw.push_back(600);
-    uint32_t data = (command & 0x7F) | ((address & 0x1F) << 7);   
+    uint32_t data = (command & 0x7F) | ((address & 0x1F) << 7);
     for (uint8_t i = 0; i < bits; i++) {
         raw.push_back((data >> i) & 1 ? 1200 : 600);
         raw.push_back(600);
@@ -221,9 +204,6 @@ bool IrService::SendSony(uint32_t address, uint32_t command, uint8_t bits) {
     return SendRaw(raw, 40000);
 }
 
- 
- 
- 
 bool IrService::SendCode(const IrCode& code) {
     if (code.type == "raw") {
         return SendRaw(code.raw_data, code.frequency);
@@ -250,9 +230,6 @@ bool IrService::SendCode(const IrCode& code) {
     return false;
 }
 
- 
- 
- 
 std::vector<IrCode> IrService::ParseIrFile(const std::string& filepath) {
     std::vector<IrCode> codes;
     FILE* f = fopen(filepath.c_str(), "r");
@@ -323,7 +300,6 @@ std::vector<IrCode> IrService::ParseIrFile(const std::string& filepath) {
             val.erase(std::remove(val.begin(), val.end(), ' '), val.end());
             current.command = parse_hex(val);
         } else if (key == "data" || key == "value" || key == "state") {
-             
             current.raw_data.clear();
             char* token = strtok(const_cast<char*>(val.c_str()), " \t");
             while (token) {
@@ -342,9 +318,6 @@ std::vector<IrCode> IrService::ParseIrFile(const std::string& filepath) {
     return codes;
 }
 
- 
- 
- 
 bool IrService::ReplayFile(const std::string& filepath, const std::string& command_name) {
     if (!initialized_)
         return false;
@@ -376,65 +349,38 @@ bool IrService::ReplayFile(const std::string& filepath, const std::string& comma
     return SendCode(*target);
 }
 
- 
- 
- 
- 
-struct TvCode {
-    const uint16_t* data;
-    size_t len;
-    uint32_t freq;
+struct TvBGoneTaskArg {
+    IrService* svc;
+    std::string region;
 };
-
- 
- 
- 
- 
- 
- 
-static const uint16_t tv_samsung[] = {
-    4500, 4500, 560,  1690, 560,  560, 560,  560, 560,  560, 560,  1690, 560,  1690, 560, 1690, 560,
-    560,  560,  1690, 560,  1690, 560, 1690, 560, 1690, 560, 1690, 560,  1690, 560,  560, 560,  560,
-    560,  560,  560,  1690, 560,  560, 560,  560, 560,  560, 560,  1690, 560,  560,  560, 560,  560,
-    1690, 560,  560,  560,  560,  560, 560,  560, 1690, 560, 560,  560,  560,  560,  560, 560};
-static const uint16_t tv_lg[] = {9000, 4500, 560, 1690, 560, 560,  560, 560,  560, 560,  560, 1690,
-                                 560,  1690, 560, 1690, 560, 560,  560, 560,  560, 560,  560, 560,
-                                 560,  1690, 560, 560,  560, 560,  560, 560,  560, 1690, 560, 560,
-                                 560,  560,  560, 560,  560, 1690, 560, 1690, 560, 1690, 560, 560,
-                                 560,  1690, 560, 1690, 560, 1690, 560, 560,  560, 1690, 560, 1690,
-                                 560,  1690, 560, 560,  560, 560,  560, 560,  560};
-static const uint16_t tv_philips[] = {889, 889, 889, 889, 889, 1778, 889,  889, 889,
-                                      889, 889, 889, 889, 889, 889,  1778, 889, 1778,
-                                      889, 889, 889, 889, 889, 889,  889,  889, 889};
-static const uint16_t tv_sony[] = {2400, 600, 1200, 600, 600,  600, 600, 600, 1200, 600, 600, 600,
-                                   1200, 600, 1200, 600, 1200, 600, 600, 600, 1200, 600, 600, 600};
-static const uint16_t tv_tcl[] = {
-    9000, 4500, 560,  560, 560,  560, 560,  560,  560,  1690, 560,  560, 560,  560, 560,  560,  560,
-    1690, 560,  1690, 560, 1690, 560, 1690, 560,  560,  560,  1690, 560, 1690, 560, 1690, 560,  560,
-    560,  560,  560,  560, 560,  560, 560,  1690, 560,  560,  560,  560, 560,  560, 560,  1690, 560,
-    1690, 560,  1690, 560, 1690, 560, 560,  560,  1690, 560,  1690, 560, 1690, 560};
-
-static const TvCode TV_CODES[] = {
-    {tv_samsung, sizeof(tv_samsung) / sizeof(uint16_t), 38000},
-    {tv_lg, sizeof(tv_lg) / sizeof(uint16_t), 38000},
-    {tv_philips, sizeof(tv_philips) / sizeof(uint16_t), 36000},
-    {tv_sony, sizeof(tv_sony) / sizeof(uint16_t), 40000},
-    {tv_tcl, sizeof(tv_tcl) / sizeof(uint16_t), 38000},
-};
-static const size_t TV_CODE_COUNT = sizeof(TV_CODES) / sizeof(TV_CODES[0]);
 
 static void TvBGoneTask(void* arg) {
-    IrService* svc = static_cast<IrService*>(arg);
-    ESP_LOGI("IrService", "TV-B-Gone başladı. %d kod gönderilecek.", (int)TV_CODE_COUNT);
+    TvBGoneTaskArg* typed_arg = static_cast<TvBGoneTaskArg*>(arg);
+    IrService* svc = typed_arg->svc;
+    std::string region = typed_arg->region;
+    delete typed_arg;
+
+    const TvCode* arr = nullptr;
+    size_t count = 0;
+
+    if (region == "eu") {
+        arr = TvBGoneCodes::TV_B_GONE_EU_CODES;
+        count = TvBGoneCodes::TV_B_GONE_EU_CODE_COUNT;
+        ESP_LOGI("IrService", "TV-B-Gone (EU) başladı. %d kod gönderilecek.", (int)count);
+    } else {
+        arr = TvBGoneCodes::TV_B_GONE_US_CODES;
+        count = TvBGoneCodes::TV_B_GONE_US_CODE_COUNT;
+        ESP_LOGI("IrService", "TV-B-Gone (US/AS) başladı. %d kod gönderilecek.", (int)count);
+    }
 
     while (svc->IsTvBGoneRunning()) {
-        for (size_t i = 0; i < TV_CODE_COUNT && svc->IsTvBGoneRunning(); i++) {
+        for (size_t i = 0; i < count && svc->IsTvBGoneRunning(); i++) {
             std::vector<uint16_t> raw;
-            for (size_t j = 0; j < TV_CODES[i].len; j++) {
-                raw.push_back(TV_CODES[i].data[j]);
+            for (size_t j = 0; j < arr[i].len; j++) {
+                raw.push_back(arr[i].data[j]);
             }
-            svc->_SendRawPublic(raw, TV_CODES[i].freq);
-            vTaskDelay(pdMS_TO_TICKS(200));   
+            svc->_SendRawPublic(raw, arr[i].freq);
+            vTaskDelay(pdMS_TO_TICKS(200));
         }
         vTaskDelay(pdMS_TO_TICKS(500));
     }
@@ -444,22 +390,21 @@ static void TvBGoneTask(void* arg) {
     vTaskDelete(NULL);
 }
 
-bool IrService::StartTvBGone() {
+bool IrService::StartTvBGone(const std::string& region) {
     if (!initialized_)
         return false;
     if (is_tvbgone_)
         return true;
     is_tvbgone_ = true;
-    xTaskCreatePinnedToCore(TvBGoneTask, "tvbgone", 4096, this, 4,
+
+    TvBGoneTaskArg* arg = new TvBGoneTaskArg{this, region};
+    xTaskCreatePinnedToCore(TvBGoneTask, "tvbgone", 4096, arg, 4,
                             (TaskHandle_t*)&tvbgone_task_handle_, 1);
     return true;
 }
 
 void IrService::StopTvBGone() { is_tvbgone_ = false; }
 
- 
- 
- 
 struct JammerTaskArg {
     IrService* svc;
     IrJamMode mode;
@@ -488,7 +433,6 @@ static void IrJammerTask(void* arg) {
 
         switch (mode) {
             case IrJamMode::BASIC: {
-                 
                 std::vector<uint16_t> raw;
                 for (int i = 0; i < 40; i++) {
                     raw.push_back(12);
@@ -498,7 +442,6 @@ static void IrJammerTask(void* arg) {
                 break;
             }
             case IrJamMode::SWEEP: {
-                 
                 sweep_timing += sweep_dir;
                 if (sweep_timing >= 70 || sweep_timing <= 8)
                     sweep_dir = -sweep_dir;
