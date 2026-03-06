@@ -38,12 +38,16 @@ set(SOURCES "audio/audio_codec.cc"
             "device_state_machine.cc"
             "assets.cc"
             "cc1101_service.cc"
+            "bad_usb_service.cc"
             "news_service.cc"
             "ir_service.cc"
             "main.cc"
             )
 
-set(INCLUDE_DIRS "." "display" "display/lvgl_display" "display/lvgl_display/jpg" "audio" "audio/demuxer" "protocols")
+file(GLOB BAD_USB_SOURCES "bad_usb/*.cpp")
+list(APPEND SOURCES ${BAD_USB_SOURCES})
+
+set(INCLUDE_DIRS "." "bad_usb" "display" "display/lvgl_display" "display/lvgl_display/jpg" "audio" "audio/demuxer" "protocols")
 
 # Add board common files
 list(APPEND SOURCES
@@ -915,6 +919,7 @@ idf_component_register(SRCS ${SOURCES}
                         fatfs
                         sdmmc
                         espressif2022__esp_emote_expression
+                        tinyusb
                     )
 
 # Use target_compile_definitions to define BOARD_TYPE, BOARD_NAME

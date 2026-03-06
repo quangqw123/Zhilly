@@ -40,6 +40,12 @@ Complete control over Sub-GHz and Infrared spectrums:
 *   **RAW Capture:** Capture Sub-GHz signals with microsecond precision.
 *   **SD Card Storage:** Save captured signals to the SD card for later use.
 
+### ⌨️ Bad USB & HID
+*   **Keyboard Emulation:** Your assistant can act as a standard USB keyboard when connected to a computer.
+*   **DuckyScript Support:** Run automated keystroke scripts stored on the SD card directly via voice commands.
+    *   *Voice Command:* "Run BadUSB script 'hello_world.txt'" or "Type this: 'I am your AI assistant'".
+*   **HID Tools:** Fully integrated via `usb.bad_usb_run`, `usb.bad_usb_type`, and `usb.bad_usb_stop` tools.
+
 ### 🌈 LED Strip & Visual Effects
 Control the 8x WS2812 RGB LED ring:
 *   **Dynamic Control:** Set colors, brightness (0-8), and animations like **Blink** or **Scroll**.
@@ -90,6 +96,12 @@ Sub-GHz ve Kızılötesi frekansları üzerinde tam kontrol:
 *   **IR Replay (Test):** Kızılötesi sinyalleri kaydedin ve tekrar yayınlayın.
 *   **RAW Capture:** RF sinyallerini mikro saniye hassasiyetiyle yakalayın.
 *   **SD Kart Kaydı:** Yakalanan sinyalleri daha sonra kullanmak üzere SD karta kaydedin.
+
+### ⌨️ Bad USB & HID
+*   **Klavye Simülasyonu:** Asistanınız bilgisayara bağlandığında kendini standart bir USB klavye olarak tanıtır.
+*   **DuckyScript Desteği:** SD kartta saklanan DuckyScript betiklerini sesli komutlarla otomatik olarak çalıştırın.
+    *   *Sesli Komut:* "BadUSB betiği 'selam.txt' çalıştır" veya "Şunu yaz: 'Ben senin yapay zeka asistanınım'".
+*   **HID Araçları:** `usb.bad_usb_run`, `usb.bad_usb_type` ve `usb.bad_usb_stop` araçları ile tam uyumlu çalışır.
 
 ### 🌈 LED Halkası ve Efektler
 8 adet WS2812 RGB LED'i kontrol edin:

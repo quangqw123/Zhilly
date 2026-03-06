@@ -8,6 +8,7 @@
 #include <cstring>
 
 #include "application.h"
+#include "bad_usb_service.h"
 #include "board.h"
 #include "display.h"
 #include "ir_service.h"
@@ -294,6 +295,47 @@ void McpServer::AddCommonTools() {
             PropertyList(), [&cc1101](const PropertyList& properties) -> ReturnValue {
                 return cc1101.ListSdFiles();
             });
+
+    auto bad_usb = Application::GetInstance().GetBadUsbService();
+    if (bad_usb) {
+        AddTool(
+            "self.usb.bad_usb_run",
+            "Hedef cihaza komutlar gondermek icin DuckyScript calistirir.\n"
+            "Ornek script: GUI r\\nDELAY 100\\nSTRING cmd\\nENTER\n"
+            "Komutlar asenkron olarak arka planda calistirilir (Wi-Fi ve mikrofon aktif kalir).",
+            PropertyList({Property("script", kPropertyTypeString)}),
+            [bad_usb](const PropertyList& properties) -> ReturnValue {
+                std::string script = properties["script"].value<std::string>();
+                bool ok = bad_usb->RunScript(script);
+                return ok ? std::string("DuckyScript kuyruga eklendi.")
+                          : std::string("Hata: Kuyruk dolu.");
+            });
+
+        AddTool("self.usb.bad_usb_type",
+                "Hedef bilgisayara dogrudan metin yazar. DuckyScript olmadan duz metin tuslamak "
+                "icin kullanilir.",
+                PropertyList({Property("text", kPropertyTypeString)}),
+                [bad_usb](const PropertyList& properties) -> ReturnValue {
+                    std::string text = properties["text"].value<std::string>();
+                    bool ok = bad_usb->TypeText(text);
+                    return ok ? std::string("Metin kuyruga eklendi.")
+                              : std::string("Hata: Kuyruk dolu.");
+                });
+
+        AddTool("self.usb.bad_usb_stop",
+                "Aktif devam eden BadUSB scriptini ve bekleme (delay) sureclerini aninda durdurur.",
+                PropertyList(), [bad_usb](const PropertyList& properties) -> ReturnValue {
+                    bad_usb->Stop();
+                    return std::string("BadUSB komutlari durduruldu.");
+                });
+
+        AddTool("self.usb.get_status",
+                "USB (TinyUSB) baglanti durumunu ve su an aktif bir yazma/script islemi olup "
+                "olmadigini gosterir.",
+                PropertyList(), [bad_usb](const PropertyList& properties) -> ReturnValue {
+                    return bad_usb->GetStatusJSON();
+                });
+    }
 
     tools_.insert(tools_.end(), original_tools.begin(), original_tools.end());
 }
