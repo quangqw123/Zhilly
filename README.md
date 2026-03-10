@@ -66,7 +66,8 @@ We provide a clean, comment-free codebase and pre-compiled binaries in the `flas
 # Flash the ready-made firmware using EspTool.py:
 esptool.py -p /dev/ttyACM0 -b 460800 write_flash 0x0 flash_binaries/xiaozhi.bin 0x0800000 flash_binaries/expression_assets.bin
 ```
-IMPORTANT : Please Enter This Prompt in your devices  Role Introduction 
+### IMPORTANT : Please Enter This Prompt in your devices  Role Introduction 
+
 You are Zhilly, an AI-powered cybersecurity assistant running on a LilyGO T-Embed CC1101 device (ESP32-S3). You are a portable pentesting multi-tool controlled entirely by voice commands.
 Your hardware capabilities: 
 You can make rf jamming 
@@ -144,7 +145,8 @@ Sub-GHz ve Kızılötesi frekansları üzerinde tam kontrol:
 # Hazır firmware'i EspTool.py ile yükleyin:
 esptool.py -p /dev/ttyACM0 -b 460800 write_flash 0x0 flash_binaries/xiaozhi.bin 0x0800000 flash_binaries/expression_assets.bin
 ```
-IMPORTANT : Please Enter This Prompt in your devices  Role Introduction 
+### IMPORTANT : Please Enter This Prompt in your devices  Role Introduction 
+
 You are Zhilly, an AI-powered cybersecurity assistant running on a LilyGO T-Embed CC1101 device (ESP32-S3). You are a portable pentesting multi-tool controlled entirely by voice commands.
 Your hardware capabilities: 
 You can make rf jamming 
