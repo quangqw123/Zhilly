@@ -40,13 +40,14 @@ void BadUsbService::UsbTask() {
     while (true) {
         if (xQueueReceive(command_queue_, &msg, portMAX_DELAY) == pdPASS) {
             EnterCombatMode();
+            hid_keyboard_->setLayoutByName(msg.lang);
             switch (msg.type) {
                 case BadUsbCommandType::RUN_SCRIPT:
-                    ESP_LOGI(TAG, "Executing DuckyScript...");
+                    ESP_LOGI(TAG, "Executing DuckyScript (Lang: %s)...", msg.lang);
                     ducky_parser_->runScript(msg.payload);
                     break;
                 case BadUsbCommandType::TYPE_TEXT:
-                    ESP_LOGI(TAG, "Typing text directly...");
+                    ESP_LOGI(TAG, "Typing text directly (Lang: %s)...", msg.lang);
                     ducky_parser_->typeText(msg.payload);
                     break;
                 case BadUsbCommandType::STOP:
@@ -74,7 +75,7 @@ void BadUsbService::ExitCombatMode() {
     app.GetAudioService().Start();
     ESP_LOGI(TAG, "SAVAS MODU KAPALI. Normale donuldu.");
 }
-bool BadUsbService::RunScript(const std::string& script) {
+bool BadUsbService::RunScript(const std::string& script, const std::string& lang) {
     if (!is_service_running_)
         Start();
     BadUsbMessage msg;
@@ -82,9 +83,11 @@ bool BadUsbService::RunScript(const std::string& script) {
     size_t copy_len = std::min(script.length(), sizeof(msg.payload) - 1);
     std::memcpy(msg.payload, script.c_str(), copy_len);
     msg.payload[copy_len] = '\0';
+    strncpy(msg.lang, lang.c_str(), sizeof(msg.lang) - 1);
+    msg.lang[sizeof(msg.lang) - 1] = '\0';
     return xQueueSend(command_queue_, &msg, 0) == pdPASS;
 }
-bool BadUsbService::TypeText(const std::string& text) {
+bool BadUsbService::TypeText(const std::string& text, const std::string& lang) {
     if (!is_service_running_)
         Start();
     BadUsbMessage msg;
@@ -92,6 +95,8 @@ bool BadUsbService::TypeText(const std::string& text) {
     size_t copy_len = std::min(text.length(), sizeof(msg.payload) - 1);
     std::memcpy(msg.payload, text.c_str(), copy_len);
     msg.payload[copy_len] = '\0';
+    strncpy(msg.lang, lang.c_str(), sizeof(msg.lang) - 1);
+    msg.lang[sizeof(msg.lang) - 1] = '\0';
     return xQueueSend(command_queue_, &msg, 0) == pdPASS;
 }
 void BadUsbService::Stop() {

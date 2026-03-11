@@ -15,7 +15,8 @@ enum DuckyCommandType {
     DuckyCommandType_AltChar,
     DuckyCommandType_AltString,
     DuckyCommandType_StringDelay,
-    DuckyCommandType_DefaultStringDelay
+    DuckyCommandType_DefaultStringDelay,
+    DuckyCommandType_SetLanguage
 };
 struct DuckyCommand {
     const char* command;

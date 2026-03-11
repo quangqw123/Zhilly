@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "Bad_Usb_Lib.h"
 #include "keys.h"
 #include "tinyusb.h"
@@ -14,8 +15,8 @@ private:
     uint8_t _shiftCache[128];
     bool _cacheValid;
     void _buildShiftCache();
-    size_t pressRaw(uint8_t k);
-    size_t releaseRaw(uint8_t k);
+    size_t pressRaw(uint8_t k) override;
+    size_t releaseRaw(uint8_t k) override;
     void sendReport(KeyReport *keys);
 public:
     USBHIDKeyboard();
@@ -31,6 +32,7 @@ public:
         _cacheValid = false;
         _buildShiftCache();
     }
+    void setLayoutByName(const std::string& lang_name);
     void setDelay(uint32_t ms) override {
         _delay_ms = ms;
     }

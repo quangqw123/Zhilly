@@ -2,6 +2,7 @@
 #define BAD_USB_LIB_H
 #include <stdint.h>
 #include <cstddef>
+#include <string>
 #include "keys.h"
 class HIDInterface {
 public:
@@ -18,6 +19,7 @@ public:
     virtual void releaseAll(void) {};
     virtual bool isConnected() { return false; };
     virtual void setLayout(const uint8_t* layout) {};
+    virtual void setLayoutByName(const std::string& name) {};
     virtual void setDelay(uint32_t ms) {};
 };
 #endif

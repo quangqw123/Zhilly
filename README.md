@@ -46,6 +46,28 @@ Complete control over Sub-GHz and Infrared spectrums:
     *   *Voice Command:* "Run BadUSB script 'hello_world.txt'" or "Type this: 'I am your AI assistant'".
 *   **HID Tools:** Fully integrated via `usb.bad_usb_run`, `usb.bad_usb_type`, and `usb.bad_usb_stop` tools.
 
+#### 🌍 Supported Keyboard Layouts
+
+You can set the keyboard language via voice command (e.g. *"Set keyboard layout to Turkish"*).
+
+| # | Language | Code | Voice Command Example |
+|---|----------|------|-----------------------|
+| 1 | 🇺🇸 English (US) | `en_US` | *"Set layout to English"* |
+| 2 | 🇬🇧 English (UK) | `en_UK` | *"Set layout to English UK"* |
+| 3 | 🇹🇷 Turkish | `tr_TR` | *"Set layout to Turkish"* |
+| 4 | 🇩🇪 German | `de_DE` | *"Set layout to German"* |
+| 5 | 🇫🇷 French | `fr_FR` | *"Set layout to French"* |
+| 6 | 🇪🇸 Spanish | `es_ES` | *"Set layout to Spanish"* |
+| 7 | 🇮🇹 Italian | `it_IT` | *"Set layout to Italian"* |
+| 8 | 🇵🇹 Portuguese (BR) | `pt_BR` | *"Set layout to Portuguese Brazil"* |
+| 9 | 🇵🇹 Portuguese (PT) | `pt_PT` | *"Set layout to Portuguese"* |
+| 10 | 🇩🇰 Danish | `da_DK` | *"Set layout to Danish"* |
+| 11 | 🇸🇪 Swedish | `sv_SE` | *"Set layout to Swedish"* |
+| 12 | 🇭🇺 Hungarian | `hu_HU` | *"Set layout to Hungarian"* |
+| 13 | 🇸🇮 Slovenian | `si_SI` | *"Set layout to Slovenian"* |
+
+> **Default layout:** `en_US` — The layout resets to US English after each session.
+
 ### 🌈 LED Strip & Visual Effects
 Control the 8x WS2812 RGB LED ring:
 *   **Dynamic Control:** Set colors, brightness (0-8), and animations like **Blink** or **Scroll**.
@@ -124,6 +146,28 @@ Sub-GHz ve Kızılötesi frekansları üzerinde tam kontrol:
 *   **Ses Komutu Odaklı:** SD kartta saklanan DuckyScript betiklerini **sadece ve sadece yapay zeka sesli komutlarıyla** otomatik olarak çalıştırın. Manuel bir arayüz yoktur, tamamen sesle kontrol edilir.
     *   *Sesli Komut:* "BadUSB betiği 'selam.txt' çalıştır" veya "Şunu yaz: 'Ben senin yapay zeka asistanınım'".
 *   **HID Araçları:** `usb.bad_usb_run`, `usb.bad_usb_type` ve `usb.bad_usb_stop` araçları ile tam uyumlu çalışır.
+
+#### 🌍 Desteklenen Klavye Düzenleri
+
+Sesli komutla klavye dilini değiştirebilirsiniz (örn. *"Klavye düzenini Türkçe yap"*).
+
+| # | Dil | Kod | Sesli Komut Örneği |
+|---|-----|-----|--------------------|
+| 1 | 🇺🇸 İngilizce (ABD) | `en_US` | *"Düzeni İngilizce yap"* |
+| 2 | 🇬🇧 İngilizce (İngiltere) | `en_UK` | *"Düzeni İngiltere İngilizcesi yap"* |
+| 3 | 🇹🇷 Türkçe | `tr_TR` | *"Düzeni Türkçe yap"* |
+| 4 | 🇩🇪 Almanca | `de_DE` | *"Düzeni Almanca yap"* |
+| 5 | 🇫🇷 Fransızca | `fr_FR` | *"Düzeni Fransızca yap"* |
+| 6 | 🇪🇸 İspanyolca | `es_ES` | *"Düzeni İspanyolca yap"* |
+| 7 | 🇮🇹 İtalyanca | `it_IT` | *"Düzeni İtalyanca yap"* |
+| 8 | 🇵🇹 Portekizce (Brezilya) | `pt_BR` | *"Düzeni Brezilya Portekizcesi yap"* |
+| 9 | 🇵🇹 Portekizce (Portekiz) | `pt_PT` | *"Düzeni Portekizce yap"* |
+| 10 | 🇩🇰 Danca | `da_DK` | *"Düzeni Danca yap"* |
+| 11 | 🇸🇪 İsveççe | `sv_SE` | *"Düzeni İsveççe yap"* |
+| 12 | 🇭🇺 Macarca | `hu_HU` | *"Düzeni Macarca yap"* |
+| 13 | 🇸🇮 Slovence | `si_SI` | *"Düzeni Slovence yap"* |
+
+> **Varsayılan düzen:** `en_US` — Klavye düzeni her oturum başında ABD İngilizcesine sıfırlanır.
 
 ### 🌈 LED Halkası ve Efektler
 8 adet WS2812 RGB LED'i kontrol edin:

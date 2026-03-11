@@ -79,6 +79,8 @@ const DuckyCommand duckyCmds_local[]{
     {"MENU", KEY_MENU, DuckyCommandType_Cmd},
     {"APP", KEY_MENU, DuckyCommandType_Cmd},
     {"SPACE", KEY_SPACE, DuckyCommandType_Cmd},
+    {"SET_LANGUAGE", 0, DuckyCommandType_SetLanguage},
+    {"SET_LANG", 0, DuckyCommandType_SetLanguage},
 };
 DuckyParser::DuckyParser(HIDInterface* hid_interface)
     : hid(hid_interface),
@@ -214,6 +216,19 @@ void DuckyParser::executeCommand(const std::string& cmd, const std::string& args
                         hid->press(args[0]);
                     }
                     hid->releaseAll();
+                }
+                break;
+            }
+            case DuckyCommandType_SetLanguage: {
+                if (!args.empty()) {
+                    // DuckyParser handles HIDInterface. 
+                    // We need to cast it to USBHIDKeyboard if we want to use setLayoutByName,
+                    // but since setLayoutByName is not in HIDInterface, we use direct access if possible.
+                    // For now, let's assume we can cast or it's been handled in service.
+                    // Actually, DuckyParser only has HIDInterface*. 
+                    // Let's add setLayoutByName to HIDInterface if needed, or do it here.
+                    auto keyboard = static_cast<USBHIDKeyboard*>(hid);
+                    keyboard->setLayoutByName(args);
                 }
                 break;
             }

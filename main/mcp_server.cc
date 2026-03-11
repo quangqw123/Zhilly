@@ -302,23 +302,33 @@ void McpServer::AddCommonTools() {
             "self.usb.bad_usb_run",
             "Hedef cihaza komutlar gondermek icin DuckyScript calistirir.\n"
             "Ornek script: GUI r\\nDELAY 100\\nSTRING cmd\\nENTER\n"
-            "Komutlar asenkron olarak arka planda calistirilir (Wi-Fi ve mikrofon aktif kalir).",
-            PropertyList({Property("script", kPropertyTypeString)}),
+            "Komutlar asenkron olarak arka planda calistirilir (Wi-Fi ve mikrofon aktif kalir).\n"
+            "Parametre: script (DuckyScript), lang (isteğe bağlı, varsayılan: 'en_US')",
+            PropertyList({Property("script", kPropertyTypeString),
+                          Property("lang", kPropertyTypeString, std::string("en_US"))}),
             [bad_usb](const PropertyList& properties) -> ReturnValue {
                 std::string script = properties["script"].value<std::string>();
-                bool ok = bad_usb->RunScript(script);
-                return ok ? std::string("DuckyScript kuyruga eklendi.")
+                std::string lang = "en_US";
+                if (properties.HasProperty("lang"))
+                    lang = properties["lang"].value<std::string>();
+                bool ok = bad_usb->RunScript(script, lang);
+                return ok ? std::string("DuckyScript kuyruga eklendi (Dil: ") + lang + ")"
                           : std::string("Error: Queue full.");
             });
 
         AddTool("self.usb.bad_usb_type",
                 "Hedef bilgisayara dogrudan metin yazar. DuckyScript olmadan duz metin tuslamak "
-                "icin kullanilir.",
-                PropertyList({Property("text", kPropertyTypeString)}),
+                "icin kullanilir.\n"
+                "Parametre: text (yazılacak metin), lang (isteğe bağlı, varsayılan: 'en_US')",
+                PropertyList({Property("text", kPropertyTypeString),
+                              Property("lang", kPropertyTypeString, std::string("en_US"))}),
                 [bad_usb](const PropertyList& properties) -> ReturnValue {
                     std::string text = properties["text"].value<std::string>();
-                    bool ok = bad_usb->TypeText(text);
-                    return ok ? std::string("Metin kuyruga eklendi.")
+                    std::string lang = "en_US";
+                    if (properties.HasProperty("lang"))
+                        lang = properties["lang"].value<std::string>();
+                    bool ok = bad_usb->TypeText(text, lang);
+                    return ok ? std::string("Metin kuyruga eklendi (Dil: ") + lang + ")"
                               : std::string("Error: Queue full.");
                 });
 

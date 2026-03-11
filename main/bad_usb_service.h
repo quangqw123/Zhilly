@@ -11,14 +11,15 @@ enum class BadUsbCommandType { RUN_SCRIPT, TYPE_TEXT, STOP };
 struct BadUsbMessage {
     BadUsbCommandType type;
     char payload[512];  
+    char lang[16];
 };
 class BadUsbService {
 public:
     BadUsbService();
     ~BadUsbService();
     void Start();
-    bool RunScript(const std::string& script);
-    bool TypeText(const std::string& text);
+    bool RunScript(const std::string& script, const std::string& lang = "en_US");
+    bool TypeText(const std::string& text, const std::string& lang = "en_US");
     void Stop();
     std::string GetStatusJSON();
     bool IsRunning() const;
